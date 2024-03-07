@@ -1,4 +1,5 @@
 from django.db.models import QuerySet
+from django.urls import reverse_lazy
 from django.views import generic
 
 from todo_list.models import Task
@@ -13,3 +14,9 @@ class TaskListView(generic.ListView):
         if self.get_ordering():
             return task_qs.order_by(*self.get_ordering())
         return task_qs
+
+
+class TaskCreateView(generic.CreateView):
+    model = Task
+    fields = ("content", "deadline", "is_completed", "tags")
+    success_url = reverse_lazy("todo_list:index")
