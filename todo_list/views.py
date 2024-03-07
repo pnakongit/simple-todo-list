@@ -39,12 +39,12 @@ class TaskDeleteView(generic.DeleteView):
 class ToggleTaskStatusView(generic.RedirectView):
     url = reverse_lazy("todo_list:index")
 
-    def get(self, request, *args, **kwargs) -> HttpResponseRedirect:
+    def post(self, request, *args, **kwargs) -> HttpResponseRedirect:
         pk_from_kwargs = self.kwargs.get("pk")
         task = get_object_or_404(Task, pk=pk_from_kwargs)
         task.is_completed = not task.is_completed
         task.save()
-        return super().get(request, *args, **kwargs)
+        return self.get(request, *args, **kwargs)
 
 
 class TagListView(generic.ListView):
