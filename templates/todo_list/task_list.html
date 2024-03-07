@@ -24,12 +24,13 @@
                   <span class="text-danger"> Not Done</span>
                 {% endif %}
               </h4>
-              {% if task.is_completed %}
-                <a class="btn btn-secondary" href="{% url "todo_list:toggle_task_status" task.pk %}"
-                   role="button">Undo</a>
-              {% else %}
-                <a class="btn btn-success" href="{% url "todo_list:toggle_task_status" task.pk %}" role="button">Complete</a>
-              {% endif %}
+              <form action="{% url "todo_list:toggle_task_status" task.pk %}" method="post">{% csrf_token %}
+                {% if task.is_completed %}
+                  <button type="submit" class="btn btn-secondary">Undo</button>
+                {% else %}
+                  <button type="submit" class="btn btn-success">Confirm</button>
+                {% endif %}
+              </form>
             </div>
             <p>
               Task was created:{{ task.created_at }}.
