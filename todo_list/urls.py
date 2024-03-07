@@ -6,7 +6,8 @@ from todo_list.views import (
     TaskUpdateView,
     TaskDeleteView,
     ToggleTaskStatusView,
-    TagListView
+    TagListView,
+    TagCreateView
 )
 
 urlpatterns = [
@@ -16,6 +17,7 @@ urlpatterns = [
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task_delete"),
     path("tasks/<int:pk>/toggle-status/", ToggleTaskStatusView.as_view(), name="toggle_task_status"),
     path("tags/", TagListView.as_view(), name="tag_list"),
+    path("tags/create/", TagCreateView.as_view(), name="tag_create"),
 ]
 
 app_name = "todo_list"
