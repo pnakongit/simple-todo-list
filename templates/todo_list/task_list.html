@@ -6,7 +6,7 @@
     <h1>
       Task List
     </h1>
-    <a class="btn btn-primary" href="#" role="button">Create Task</a>
+    <a class="btn btn-primary" href="{% url "todo_list:task_create" %}" role="button">Create Task</a>
   </div>
   {% if task_list %}
     <ul>
@@ -25,9 +25,10 @@
                 {% endif %}
               </h4>
               {% if task.is_completed %}
-                <a class="btn btn-secondary" href="#" role="button">Undo</a>
+                <a class="btn btn-secondary" href="{% url "todo_list:toggle_task_status" task.pk %}"
+                   role="button">Undo</a>
               {% else %}
-                <a class="btn btn-success" href="#" role="button">Complete</a>
+                <a class="btn btn-success" href="{% url "todo_list:toggle_task_status" task.pk %}" role="button">Complete</a>
               {% endif %}
             </div>
             <p>
@@ -43,8 +44,8 @@
                 {{ tag.name }}
               {% endfor %}
             </p>
-            <a class="btn btn-primary" href="#" role="button">Update</a>
-            <a class="btn btn btn-danger" href="#" role="button">Delete</a>
+            <a class="btn btn-primary" href="{% url "todo_list:task_update" task.pk %}" role="button">Update</a>
+            <a class="btn btn btn-danger" href="{% url "todo_list:task_delete" task.pk %}" role="button">Delete</a>
           </div>
         </div>
       {% endfor %}
