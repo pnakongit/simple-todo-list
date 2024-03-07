@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center m-2">
+    <h1>
+      Task List
+    </h1>
+    <a class="btn btn-primary" href="{% url "todo_list:task_create" %}" role="button">Create Task</a>
+  </div>
+  {% if task_list %}
+    <ul>
+      {% for task in task_list %}
+        <div class="card">
+          <div class="card-header">
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <h4>
+                {{ task.content }}
+                {% if task.is_completed %}
+                  <span class="text-success"> Done</span>
+                {% else %}
+                  <span class="text-danger"> Not Done</span>
+                {% endif %}
+              </h4>
+              <form action="{% url "todo_list:toggle_task_status" task.pk %}" method="post">{% csrf_token %}
+                {% if task.is_completed %}
+                  <button type="submit" class="btn btn-secondary">Undo</button>
+                {% else %}
+                  <button type="submit" class="btn btn-success">Confirm</button>
+                {% endif %}
+              </form>
+            </div>
+            <p>
+              Task was created:{{ task.created_at }}.
+              {% if task.deadline %}
+                <span class="text-danger">Deadline: {{ task.deadline }}</span>
+              {% else %}
+              {% endif %}
+            </p>
+            <p class="text-secondary">
+              Tags:
+              {% for tag in task.tags.all %}
+                {{ tag.name }}
+              {% endfor %}
+            </p>
+            <a class="btn btn-primary" href="{% url "todo_list:task_update" task.pk %}" role="button">Update</a>
+            <a class="btn btn btn-danger" href="{% url "todo_list:task_delete" task.pk %}" role="button">Delete</a>
+          </div>
+        </div>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no task in todo list</p>
+  {% endif %}
+
+{% endblock %}
