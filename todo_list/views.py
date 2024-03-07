@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
-from todo_list.models import Task
+from todo_list.models import Task,Tag
 
 
 class TaskListView(generic.ListView):
@@ -45,3 +45,7 @@ class ToggleTaskStatusView(generic.RedirectView):
         task.is_completed = not task.is_completed
         task.save()
         return super().get(request, *args, **kwargs)
+
+
+class TagListView(generic.ListView):
+    model = Tag
