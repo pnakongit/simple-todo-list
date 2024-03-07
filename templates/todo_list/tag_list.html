@@ -5,7 +5,7 @@
     <h1>
       Tag List
     </h1>
-    <a class="btn btn-primary" href="#" role="button">Create Tag</a>
+    <a class="btn btn-primary" href="{% url "todo_list:tag_create" %}" role="button">Create Tag</a>
   </div>
   {% if tag_list %}
     <table class="table">
@@ -22,8 +22,8 @@
         <tr>
           <th scope="row">{{ tag.pk }}</th>
           <td class="font-weight-bold">{{ tag.name }}</td>
-          <td><a href="#" class="link-primary">Update</a></td>
-          <td><a href="#" class="link-danger">Danger link</a></td>
+          <td><a href="{% url "todo_list:tag_update" tag.pk %}" class="link-primary">Update</a></td>
+          <td><a href="{% url "todo_list:tag_delete" tag.pk %}" class="link-danger">Delete</a></td>
         </tr>
       {% endfor %}
       </tbody>
